@@ -1,0 +1,123 @@
+/* ===================================================================
+   POUR MON AMOUR — animations.css
+   Keyframes reutilizáveis: fade+blur reveals, batimento, névoa, hint.
+=================================================================== */
+
+/* ---------- Revelação de texto (fade + blur + subir) ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  filter: blur(6px);
+  animation: revealIn 1.4s var(--ease-cine) forwards;
+}
+.reveal--delay-1 { animation-delay: 0.3s; }
+.reveal--delay-2 { animation-delay: 0.9s; }
+.reveal--delay-3 { animation-delay: 1.5s; }
+.reveal--delay-4 { animation-delay: 2.1s; }
+.reveal--delay-5 { animation-delay: 2.6s; }
+
+@keyframes revealIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Reinicia a animação sempre que a cena reativa (JS remove/adiciona a classe) */
+.scene.is-active .reveal { animation-play-state: running; }
+
+@keyframes fogDrift {
+  0%   { transform: translate3d(0,0,0) scale(1); }
+  100% { transform: translate3d(2%, -1.5%, 0) scale(1.05); }
+}
+
+@keyframes hintPulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.75; }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.12); }
+  30% { transform: scale(0.96); }
+  45% { transform: scale(1.08); }
+  60% { transform: scale(1); }
+}
+
+@keyframes eqBounce {
+  0%, 100% { height: 4px; }
+  50% { height: 15px; }
+}
+
+/* ---------- Parágrafos da carta (texto completo, entrada em cascata) ---------- */
+.letter__para {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: paraIn 0.9s var(--ease-cine) forwards;
+}
+@keyframes paraIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Estrela cadente (elemento injetado via JS em particles.js) ---------- */
+.shooting-star {
+  position: fixed;
+  top: 12%;
+  left: -10%;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--c-white);
+  box-shadow: 0 0 8px 2px rgba(255,255,255,0.9);
+  z-index: 5;
+  pointer-events: none;
+  animation: shootAcross 1.8s cubic-bezier(0.3,0.6,0.4,1) forwards;
+}
+.shooting-star::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  width: 140px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8));
+  transform: translateY(-50%);
+}
+@keyframes shootAcross {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  8%   { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translate(130vw, 55vh); opacity: 0; }
+}
+
+/* ---------- Zoom lento de fundo (usado opcionalmente por cena) ---------- */
+.scene--1 .moon {
+  animation: moonGlow 5s ease-in-out infinite alternate;
+}
+@keyframes moonGlow {
+  from { box-shadow: 0 0 70px 10px rgba(232,207,156,0.28), 0 0 140px 40px rgba(232,207,156,0.10); }
+  to   { box-shadow: 0 0 90px 18px rgba(232,207,156,0.42), 0 0 170px 55px rgba(232,207,156,0.18); }
+}
+
+.scene--2 .eiffel {
+  animation: eiffelParallax 14s ease-in-out infinite alternate;
+}
+@keyframes eiffelParallax {
+  from { transform: translateX(-50%) translateY(0) scale(1); }
+  to   { transform: translateX(-50%) translateY(-6px) scale(1.015); }
+}
+
+/* ---------- Transição "zoom" ao clicar Ouvrir (tela 1) ---------- */
+.scene--1.is-leaving {
+  transform: scale(1.15);
+  filter: blur(20px) brightness(1.3);
+}
+
+/* ---------- Wax seal micro-interação ---------- */
+.envelope:not(.is-open):hover .envelope__seal {
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+/* ---------- Fade dos controles do player ---------- */
+.player__controls, .player__bigplay { transition: opacity 0.4s ease, transform 0.4s ease; }
