@@ -78,6 +78,9 @@
 
   video.addEventListener('loadedmetadata', () => {
     durationEl.textContent = formatTime(video.duration);
+    if (video.videoWidth && video.videoHeight) {
+      player.style.setProperty('--v-ratio', `${video.videoWidth} / ${video.videoHeight}`);
+    }
   });
 
   bar.addEventListener('click', (e) => seekFromEvent(e.clientX));
@@ -90,9 +93,23 @@
     btnMute.style.opacity = video.muted ? '0.5' : '1';
   });
 
+  const musicToggle = document.getElementById('music-toggle');
+
+  function setFullscreen(active) {
+    player.classList.toggle('is-fullscreen', active);
+    btnFullscreen.setAttribute('aria-label', active ? 'Sair da tela cheia' : 'Tela cheia');
+    if (musicToggle) musicToggle.classList.toggle('is-fs-hidden', active);
+  }
+
   btnFullscreen.addEventListener('click', () => {
-    if (player.requestFullscreen) player.requestFullscreen();
-    else if (player.webkitRequestFullscreen) player.webkitRequestFullscreen();
+    setFullscreen(!player.classList.contains('is-fullscreen'));
+  });
+
+  // Sai da tela cheia própria com Esc
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && player.classList.contains('is-fullscreen')) {
+      setFullscreen(false);
+    }
   });
 
   // Mostra controles ao tocar na tela (mobile)
@@ -109,8 +126,9 @@
 
   // Pausa o vídeo automaticamente se o usuário sair da cena antes do fim
   document.addEventListener('pma:scene-change', (e) => {
-    if (e.detail && e.detail.from === '5' && !video.paused) {
-      video.pause();
+    if (e.detail && e.detail.from === '5') {
+      if (!video.paused) video.pause();
+      setFullscreen(false);
     }
   });
 })();

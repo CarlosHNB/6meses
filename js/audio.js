@@ -14,7 +14,7 @@
   'use strict';
 
   const AUDIO_SRC = 'assets/audio/musica.mp3';
-  const TARGET_VOLUME = 0.24; // volume baixo, para não competir com o vídeo
+  const TARGET_VOLUME = 0.10; // volume baixo, para não competir com o vídeo
   const FADE_MS = 1200;
 
   const audio = new Audio(AUDIO_SRC);

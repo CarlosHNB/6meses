@@ -476,18 +476,48 @@ img { max-width: 100%; display: block; }
 .player {
   position: relative;
   width: 100%;
+  max-height: 78dvh;
+  aspect-ratio: var(--v-ratio, 16 / 9);
   border-radius: 22px;
   overflow: hidden;
   background: var(--c-black);
   box-shadow: 0 30px 80px -20px rgba(0,0,0,0.8), 0 0 0 1px rgba(203,160,90,0.25);
-  margin-top: var(--space-s);
+  margin: var(--space-s) auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .player__video {
   width: 100%;
-  aspect-ratio: 16/9;
+  height: 100%;
   display: block;
   background: #000;
-  object-fit: cover;
+  object-fit: contain;
+}
+
+/* Tela cheia própria (via classe JS, não pela Fullscreen API nativa —
+   isso evita que o navegador injete seus próprios controles por cima
+   dos nossos e evita vazamento visual de outras telas) */
+.player.is-fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  max-height: none;
+  aspect-ratio: auto;
+  border-radius: 0;
+  background: var(--c-black);
+  margin: 0;
+}
+.player.is-fullscreen .player__video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.player.is-fullscreen .player__caption {
+  display: none;
+}
+.player.is-fullscreen .player__glow {
+  display: none;
 }
 .player__glow {
   position: absolute;
@@ -584,6 +614,7 @@ img { max-width: 100%; display: block; }
   transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease;
 }
 .music-toggle.is-visible { opacity: 1; transform: translateY(0); }
+.music-toggle.is-fs-hidden { display: none !important; }
 .music-toggle:hover { border-color: var(--c-gold); }
 .eq { display: flex; align-items: flex-end; gap: 3px; height: 16px; }
 .eq i { display: block; width: 3px; background: var(--c-gold-soft); border-radius: 2px; height: 4px; opacity: 0.55; }
