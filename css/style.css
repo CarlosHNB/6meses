@@ -483,9 +483,6 @@ img { max-width: 100%; display: block; }
   background: var(--c-black);
   box-shadow: 0 30px 80px -20px rgba(0,0,0,0.8), 0 0 0 1px rgba(203,160,90,0.25);
   margin: var(--space-s) auto 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 .player__video {
   width: 100%;
@@ -586,12 +583,25 @@ img { max-width: 100%; display: block; }
   background: linear-gradient(90deg, var(--c-gold), var(--c-wine-bright));
 }
 .player__caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  margin: 0;
+  padding: 2.2em 1em 0.9em;
   font-family: var(--f-serif);
   font-style: italic;
   font-size: 0.9rem;
+  text-align: center;
   color: var(--c-gold-soft);
-  opacity: 0.8;
-  margin: 0.9em 0 0;
+  background: linear-gradient(0deg, rgba(0,0,0,0.72), transparent);
+  opacity: 0.9;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+.player.is-playing .player__caption {
+  opacity: 0;
 }
 
 /* ---------- Botão de música ---------- */
