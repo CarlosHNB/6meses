@@ -13,10 +13,11 @@
   // -------------------- Texto da carta (Tela 3) --------------------
   // Edite livremente o conteúdo abaixo — cada string vira um parágrafo.
   const LETTER_PARAGRAPHS = [
-    'Seis meses podem parecer pouco para algumas pessoas, mas para mim foram o tempo de aprender, todos os dias, uma nova forma de amar você.',
-    'Aprendi o jeito como você ri antes de terminar a piada, o silêncio que você faz quando está pensando em algo importante, e o quanto o meu dia fica mais leve só por saber que você existe nele.',
-    'Estou aprendendo francês, aos poucos, palavra por palavra — assim como aprendo você, todos os dias, com a mesma paciência e a mesma vontade de acertar.',
-    'Essa carta é só o começo de uma noite que preparei com todo o cuidado que você merece. Vem comigo?'
+    'Certo! Só mais uma cartinha, porém, mais simples. Só queria agradecer por tudo de bom que você vem fazendo na minha vida.',
+    'Serei sempre grato, você me salvou amor, tem noção disso? Espero que eu te salve o tanto que você me salva.',
+    'Fico feliz em ser seu namorado, em compartilhar uma vida com você, estamos a um semestre juntos, que dá ora não?',
+    'Eu te amo muito, meu amor, muito mesmo! Vamos continuar com nossas aventuras, eu e você de mãos dadas.',
+    'Feliz 6 meses minha delicia, meu bb, minha neném, minha vida, meu tudo, minha luz, EU TE AMO, ELEN AMBROSIO SOUZAAAAAA!!!!'
   ];
 
   const stage = document.getElementById('stage');
